@@ -1,10 +1,10 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-public class MazeGame {
+public class PathGenerator {
     private Pawn player;
     private Maze maze;
 
-    public MazeGame(String filepath) {
+    public PathGenerator(String filepath) {
         // Parse filepath data and create the maze and player
         // TODO
     }
