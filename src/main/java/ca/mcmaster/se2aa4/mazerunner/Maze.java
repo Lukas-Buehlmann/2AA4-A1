@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 public class Maze {
     private List<List<Integer>> grid;
+    Pos start;
+    Pos end;
 
     public Maze(String filepath) {
         loadMaze(filepath);
@@ -23,7 +25,6 @@ public class Maze {
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
             ArrayList<Integer> row;
-            int idy = 0;
             int idx;
 
             while ((line = reader.readLine()) != null) {
@@ -35,7 +36,6 @@ public class Maze {
                         row.add(0);
                     }
                 }
-                idy++;
                 grid.add(row);
             }
             reader.close();

@@ -1,13 +1,11 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 public class Pawn {
-    private int xPos;
-    private int yPos;
+    private Pos pos;
     private int dir;
 
     public Pawn(int startX, int startY, int startDirection) {
-        xPos = startX;
-        yPos = startY;
+        pos =  new Pos(startX, startY);
         dir = startDirection;
     }
 
