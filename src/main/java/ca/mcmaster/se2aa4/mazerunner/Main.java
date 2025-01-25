@@ -17,7 +17,7 @@ public class Main {
         Options options = new Options();
         options.addOption("i", true, "Path to maze information file");
         CommandLineParser parser = new DefaultParser();
-        String filepathString;
+        String filepathString = "";
 
         PathGenerator pathgen;
 
@@ -25,17 +25,20 @@ public class Main {
             CommandLine cmd = parser.parse(options, args);
             filepathString = cmd.getOptionValue("i");
             logger.trace("**** Reading the maze from file " + filepathString);
-
-            pathgen = new PathGenerator(filepathString);
             
         } catch (ParseException e) {
             logger.error("Error in parsing command line inputs");
-        } catch(Exception e) {
-            e.printStackTrace();
-            logger.error("/!\\ An error has occured /!\\");
         }
+
         logger.info("**** Computing path");
-        logger.debug("PATH NOT COMPUTED");
+
+        // if filepath is null then the maze will be empty and print a warning
+        pathgen = new PathGenerator(filepathString);
+        String path = pathgen.findPath();
+        System.out.println("Path: " + path);
+        if (pathgen.atEnd()) logger.info("End reached!"); 
+        else logger.info("End not reached");
+
         logger.info("** End of MazeRunner");
     }
 }

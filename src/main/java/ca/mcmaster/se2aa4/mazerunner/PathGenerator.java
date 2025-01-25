@@ -8,11 +8,21 @@ public class PathGenerator {
         // Parse filepath data and create the maze and player
         maze = new Maze(filepath);
         maze.printMaze();
-        // TODO
+
+        player = new Pawn(maze.getStart());
     }
 
-    public boolean hasWon() {
-        // TODO
-        return false;
+    public String findPath() {
+        String path = "";
+
+        // this will only loop until the end of the maze when travelling in a straight line
+        for (int i=0;i < maze.getWidth() - 1;i++) {
+             if (player.move(maze)) path += "F";
+        }
+        return path;
+    }
+
+    public boolean atEnd() {
+        return (player.getPos().equals(maze.getEnd()));
     }
 }

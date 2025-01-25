@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 public class Maze {
     private List<List<Integer>> grid;
-    Pos start;
-    Pos end;
+    private Pos start;
+    private Pos end;
 
     public Maze(String filepath) {
         loadMaze(filepath);
@@ -62,7 +62,8 @@ public class Maze {
         for (List<Integer> row : grid) {
             if (row.get(0) == 0) {
                 start = new Pos(0, count);
-            } else if (row.get(row.size()-1) == 0) {
+            }
+            if (row.get(row.size()-1) == 0) {
                 end = new Pos(row.size()-1, count);
             }
             count++;
@@ -83,5 +84,13 @@ public class Maze {
 
     public void setCell(int x, int y, int val) {
         grid.get(y).set(x, val);
+    }
+
+    public Pos getStart() {
+        return start;
+    }
+    
+    public Pos getEnd() {
+        return end;
     }
 }
