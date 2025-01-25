@@ -43,11 +43,29 @@ public class Maze {
             e.printStackTrace();
             logger.error("/!\\ An error has occured /!\\");
         }
+
+        setEnds();
     }
 
     public void printMaze() {
+        int count = 0;
         for (List<Integer> row : grid) {
-            System.out.println(row.toString());
+            if (count == start.y()) System.out.print("start -> "); else System.out.print("         ");
+            System.out.print(row.toString());
+            if (count == end.y()) System.out.println(" <- end"); else System.out.println();
+            count++;
+        }
+    }
+
+    private void setEnds() {
+        int count = 0;
+        for (List<Integer> row : grid) {
+            if (row.get(0) == 0) {
+                start = new Pos(0, count);
+            } else if (row.get(row.size()-1) == 0) {
+                end = new Pos(row.size()-1, count);
+            }
+            count++;
         }
     }
 
