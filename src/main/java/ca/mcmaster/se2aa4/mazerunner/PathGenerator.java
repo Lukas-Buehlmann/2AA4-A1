@@ -6,6 +6,8 @@ public class PathGenerator {
 
     public PathGenerator(String filepath) {
         // Parse filepath data and create the maze and player
+        maze = new Maze(filepath);
+        maze.printMaze();
         // TODO
     }
 
