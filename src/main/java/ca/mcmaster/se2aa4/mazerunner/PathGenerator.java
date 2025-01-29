@@ -12,8 +12,8 @@ public class PathGenerator {
         player = new Pawn(maze.getStart(), 1);
     }
 
-    public String findPath() {
-        String path = "";
+    public Path findPath() {
+        Path path = new Path();
         Pos next;
         int turns;
         String moves = "RFL";
@@ -26,17 +26,14 @@ public class PathGenerator {
                 turns++;
                 player.turnLeft();
                 next = player.getNextPos();
-                // System.out.println("next - x: " + next.x() + " y: " + next.y());
             } while (maze.getCell(next.x(), next.y()) != 0 && turns <= 2);
 
             if (turns > 2) {
                 player.turnRight();
-                path += "L";
-                // System.out.print("L ");
+                path.append("L");
             } else {
-                if (turns != 1) path += moves.charAt(turns);
-                path += "F";
-                // System.out.print(moves.charAt(turns) + "F ");
+                if (turns != 1) path.append("" + moves.charAt(turns));
+                path.append("F");
                 player.move();
             }
 

@@ -34,8 +34,8 @@ public class Main {
 
         // if filepath is null then the maze will be empty and print a warning
         pathgen = new PathGenerator(filepathString);
-        String path = pathgen.findPath();
-        System.out.println("Path: " + path);
+        Path path = pathgen.findPath();
+        System.out.println("Path: " + path.getCanonical());
         if (pathgen.atEnd()) logger.info("End reached!"); 
         else logger.info("End not reached");
 
