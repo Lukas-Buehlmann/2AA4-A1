@@ -30,7 +30,19 @@ public class Path {
             canonical.insert(i + count, " ");
             count++;
         }
-        
+
         return canonical.toString();
+    }
+
+    public String getFactorized() {
+        StringBuffer factorized = new StringBuffer();
+        String[] tokens = this.getCanonical().split("\\s");
+
+        for (String token : tokens) {
+            if (token.length() > 1) factorized.append("" + token.length() + token.charAt(0) + " ");
+            else factorized.append(token.charAt(0) + " ");
+        }
+
+        return factorized.toString();
     }
 }
