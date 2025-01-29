@@ -48,13 +48,18 @@ public class Maze {
     }
 
     public void printMaze() {
+        Logger logger = LogManager.getLogger();
+        String line;
         int count = 0;
+        logger.info("****** Printing maze read in");
         for (List<Integer> row : grid) {
-            if (count == start.y()) System.out.print("start -> "); else System.out.print("         ");
-            System.out.print(row.toString());
-            if (count == end.y()) System.out.println(" <- end"); else System.out.println();
+            line = (count == start.y()) ? "start -> " : "         ";
+            line += row.toString();
+            line += (count == end.y()) ? " <- end" : "";
+            logger.info(line);
             count++;
         }
+        logger.info("****** End of maze");
     }
 
     private void setEnds() {

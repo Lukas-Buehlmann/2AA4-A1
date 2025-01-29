@@ -1,46 +1,51 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 public class Pawn {
-    public enum Dir {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
-    }
 
     private Pos pos;
-    private Dir dir;
+    private Pos dir;
 
-    public Pawn(int startX, int startY) {
+    public Pawn(int startX, int startY, int startDir) {
         pos = new Pos(startX, startY);
+        dir = new Pos(startDir, 0);
     }
 
-    public Pawn(Pos pos) {
+    public Pawn(Pos pos, int startDir) {
         this.pos = pos;
+        dir = new Pos(startDir, 0);
     }
 
-    // function to move forward. returns true if successful
-    // consider changing from a Maze here to just the cell value
-    public boolean move(Maze maze) {
-
-        // TODO use the direction
-        if (maze.getCell(pos.x() + 1, pos.y()) == 0) {
-            pos = new Pos(pos.x() + 1, pos.y());
-            return true;
-        }
-        return false;
+    public void move() {
+        pos = this.getNextPos();
     }
 
     public void turnRight() {
-        // TODO
+        int x = -dir.y();
+        int y = dir.x();
+
+        dir = new Pos(x, y);
     }
 
     public void turnLeft() {
-        // TODO
+        int x = dir.y();
+        int y = -dir.x();
+
+        dir = new Pos(x, y);
+    }
+
+    public void turnAround() {
+        int x = -dir.x();
+        int y = -dir.y();
+
+        dir = new Pos(x, y);
     }
 
     public Pos getPos() {
         return pos;
+    }
+
+    public Pos getNextPos() {
+        return new Pos(pos.x() + dir.x(), pos.y() + dir.y());
     }
 
 }

@@ -9,16 +9,39 @@ public class PathGenerator {
         maze = new Maze(filepath);
         maze.printMaze();
 
-        player = new Pawn(maze.getStart());
+        player = new Pawn(maze.getStart(), 1);
     }
 
     public String findPath() {
         String path = "";
+        Pos next;
+        int turns;
+        String moves = "RFL";
 
-        // this will only loop until the end of the maze when travelling in a straight line
-        for (int i=0;i < maze.getWidth() - 1;i++) {
-             if (player.move(maze)) path += "F";
+        while (!this.atEnd()) {
+            player.turnAround();
+            turns = -1;
+
+            do {
+                turns++;
+                player.turnLeft();
+                next = player.getNextPos();
+                // System.out.println("next - x: " + next.x() + " y: " + next.y());
+            } while (maze.getCell(next.x(), next.y()) != 0 && turns <= 2);
+
+            if (turns > 2) {
+                player.turnRight();
+                path += "L";
+                // System.out.print("L ");
+            } else {
+                if (turns != 1) path += moves.charAt(turns);
+                path += "F";
+                // System.out.print(moves.charAt(turns) + "F ");
+                player.move();
+            }
+
         }
+
         return path;
     }
 
