@@ -9,7 +9,12 @@ public class PathGenerator {
         maze = new Maze(filepath);
         maze.printMaze();
 
-        player = new Pawn(maze.getStart(), 1);
+        player = new Pawn(maze.getStart(), maze.getDirection());
+    }
+
+    public void changeGoal() {
+        maze.switchDirection();
+        player = new Pawn(maze.getStart(), maze.getDirection());
     }
 
     public Path findPath() {
@@ -40,6 +45,35 @@ public class PathGenerator {
         }
 
         return path;
+    }
+
+    public boolean verifyBothPaths(String path) {
+        boolean success = verifyPath(path);
+        if (success) return true;
+        this.changeGoal();
+        return verifyPath(path);
+    }
+
+    public boolean verifyPath(String path) {
+        try {
+            for (int i=0;i < path.length();i++) {
+                switch(path.charAt(i)) {
+                    case 'F':
+                        player.move();
+                        break;
+                    case 'R':
+                        player.turnRight();
+                        break;
+                    case 'L':
+                        player.turnLeft();
+                }
+                if (maze.getCell(player.getPos()) != 0) return false;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+
+        return this.atEnd();
     }
 
     public boolean atEnd() {

@@ -16,8 +16,10 @@ public class Main {
         logger.info("** Starting Maze Runner");
         Options options = new Options();
         options.addOption("i", true, "Path to maze information file");
+        options.addOption("p", true, "Option to verify a path. Given path should be of same form as output");
         CommandLineParser parser = new DefaultParser();
         String filepathString = "";
+        String verifyPath = null;
 
         PathGenerator pathgen;
 
@@ -25,6 +27,9 @@ public class Main {
             CommandLine cmd = parser.parse(options, args);
             filepathString = cmd.getOptionValue("i");
             logger.trace("**** Reading the maze from file " + filepathString);
+
+            verifyPath = cmd.getOptionValue("p");
+            if (verifyPath != null) logger.trace("**** Verifying the path " + verifyPath);
             
         } catch (ParseException e) {
             logger.error("Error in parsing command line inputs");
@@ -34,10 +39,15 @@ public class Main {
 
         // if filepath is null then the maze will be empty and print a warning
         pathgen = new PathGenerator(filepathString);
-        Path path = pathgen.findPath();
-        System.out.println("Path: " + path.getFactorized());
-        if (pathgen.atEnd()) logger.info("End reached!"); 
-        else logger.info("End not reached");
+        Path path;
+
+        if (verifyPath == null) {
+            path = pathgen.findPath();
+            System.out.println(path.getFactorized());
+        } else {
+            if (pathgen.verifyBothPaths(Path.factorizedToRaw(verifyPath))) System.out.println("correct path");
+            else System.out.println("incorrect path");
+        }
 
         logger.info("** End of MazeRunner");
     }

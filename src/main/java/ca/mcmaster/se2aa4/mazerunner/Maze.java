@@ -87,6 +87,10 @@ public class Maze {
         return grid.get(y).get(x);
     }
 
+    public int getCell(Pos p) {
+        return grid.get(p.y()).get(p.x());
+    }
+
     public void setCell(int x, int y, int val) {
         grid.get(y).set(x, val);
     }
@@ -97,5 +101,15 @@ public class Maze {
     
     public Pos getEnd() {
         return end;
+    }
+
+    public void switchDirection() {
+        Pos temp = start;
+        start = end;
+        end = temp;
+    }
+
+    public int getDirection() {
+        return (start.x() > end.x()) ? -1 : 1;
     }
 }

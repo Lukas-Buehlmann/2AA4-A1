@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Path {
     private StringBuffer path = new StringBuffer();
@@ -44,5 +45,39 @@ public class Path {
         }
 
         return factorized.toString();
+    }
+
+    public static String factorizedToRaw(String factorized) {
+        StringTokenizer f = new StringTokenizer(factorized);
+        StringBuffer res = new StringBuffer();
+        String token;
+        String moves = "RFL";
+        int splitIndex;
+        int factor;
+
+        while (f.hasMoreTokens()) {
+            token = f.nextToken();
+            splitIndex = -1;
+
+            for (int i=0;i < token.length();i++) {
+                if (moves.indexOf(token.charAt(i)) != -1) {
+                    splitIndex = i;
+                    break;
+                }
+            }
+
+            if (splitIndex == -1) {
+                return "";
+            } else if (splitIndex == 0) {
+                res.append(token);
+            } else {
+                factor = Integer.parseInt(token.substring(0, splitIndex));
+                for (int i=0;i < factor;i++) {
+                    res.append(token.charAt(splitIndex));
+                }
+            }
+        }
+
+        return res.toString();
     }
 }
