@@ -37,8 +37,7 @@ public class Main {
 
         logger.info("**** Computing path");
 
-        // if filepath is null then the maze will be empty and print a warning
-        pathgen = new PathGenerator(filepathString);
+        pathgen = new RightHandPathGen(filepathString);
         Path path;
 
         if (verifyPath == null) {
